@@ -1,8 +1,13 @@
-import { MarkerArea } from '@markerjs/markerjs3';
+import { AnnotationState, MarkerArea } from '@markerjs/markerjs3';
 import { useEffect, useRef } from 'react';
 import ToolbarButton from './toolbar-button';
 
-const Mjs3Editor = () => {
+type Props = {
+  annotation?: AnnotationState;
+  onAnnotationChange?: (annotation: AnnotationState) => void;
+};
+
+const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   const editorContainer = useRef<HTMLDivElement | null>(null);
   const editor = useRef<MarkerArea | null>(null);
 
@@ -16,14 +21,19 @@ const Mjs3Editor = () => {
 
       editorContainer.current.appendChild(editor.current);
     }
-  }, []);
+    if (annotation !== undefined) {
+      editor.current?.restoreState(annotation);
+    }
+  }, [annotation]);
 
   const handleMarkerButtonClick = (markerType: string) => {
     editor.current?.createMarker(markerType);
   };
 
   const handleSaveStateClick = () => {
-    console.log(editor.current?.getState());
+    if (editor.current && onAnnotationChange) {
+      onAnnotationChange(editor.current.getState());
+    }
   };
 
   const handleRestoreStateClick = () => {
