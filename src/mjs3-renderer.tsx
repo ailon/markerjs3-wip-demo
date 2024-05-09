@@ -30,7 +30,11 @@ const Mjs3Renderer = ({ annotation }: Props) => {
     <div className="m-2 flex h-[600px] min-h-[500px] flex-col overflow-hidden rounded-md bg-white ">
       <h2 className="m-2 text-xl">Rendered Image</h2>
       <div className="m-2 flex flex-grow items-center justify-center rounded-md bg-slate-100">
-        {rendered && <img ref={renderedImage} alt="Rendered Image" />}
+        <img
+          ref={renderedImage}
+          alt="Rendered Image"
+          style={{ display: rendered ? '' : 'none' }}
+        />
         {!rendered && <div>Nothing to see here</div>}
       </div>
     </div>
