@@ -11,6 +11,21 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   const editorContainer = useRef<HTMLDivElement | null>(null);
   const editor = useRef<MarkerArea | null>(null);
 
+  const markerTypes = [
+    { name: 'FrameMarker', label: 'Frame' },
+    { name: 'LineMarker', label: 'Line' },
+    { name: 'PolygonMarker', label: 'Polygon' },
+    { name: 'FreehandMarker', label: 'Freehand' },
+    { name: 'TextMarker', label: 'Text' },
+    { name: 'EllipseMarker', label: 'Ellipse' },
+    { name: 'EllipseFrameMarker', label: 'Ellipse frame' },
+    { name: 'ArrowMarker', label: 'Arrow' },
+    { name: 'MeasurementMarker', label: 'Measurement' },
+    { name: 'HighlightMarker', label: 'Highlight' },
+    { name: 'CoverMarker', label: 'Cover' },
+    { name: 'CalloutMarker', label: 'Callout' },
+  ];
+
   useEffect(() => {
     if (!editor.current && editorContainer.current) {
       const targetImg = document.createElement('img');
@@ -51,33 +66,24 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
             console.log('pointer');
           }}
         />
+        <ToolbarButton
+          label="🗑️"
+          variant="control"
+          onClick={() => {
+            editor.current?.deleteSelectedMarkers();
+            console.log('delete');
+          }}
+        />
 
         <div className="grid grid-cols-2 gap-1 overflow-y-auto py-2">
-          <ToolbarButton
-            label="Frame"
-            variant="marker"
-            onClick={() => handleMarkerButtonClick('FrameMarker')}
-          />
-          <ToolbarButton
-            label="Line"
-            variant="marker"
-            onClick={() => handleMarkerButtonClick('LineMarker')}
-          />
-          <ToolbarButton
-            label="Polygon"
-            variant="marker"
-            onClick={() => handleMarkerButtonClick('PolygonMarker')}
-          />
-          <ToolbarButton
-            label="Freehand"
-            variant="marker"
-            onClick={() => handleMarkerButtonClick('FreehandMarker')}
-          />
-          <ToolbarButton
-            label="Text"
-            variant="marker"
-            onClick={() => handleMarkerButtonClick('TextMarker')}
-          />
+          {markerTypes.map((markerType) => (
+            <ToolbarButton
+              key={markerType.name}
+              label={markerType.label}
+              variant="marker"
+              onClick={() => handleMarkerButtonClick(markerType.name)}
+            />
+          ))}
         </div>
 
         <div className="grid grid-cols-3 gap-1">
