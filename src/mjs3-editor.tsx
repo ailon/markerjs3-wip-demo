@@ -8,6 +8,7 @@ import {
 } from '@markerjs/markerjs3';
 import { useEffect, useRef, useState } from 'react';
 import ToolbarButton from './toolbar-button';
+import PropertyPanel from './property-panel';
 
 type Props = {
   annotation?: AnnotationState;
@@ -180,76 +181,73 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
           (currentMarker.is(ShapeOutlineMarkerEditor) ||
             currentMarker.is(LinearMarkerEditor) ||
             currentMarker.is(FreehandMarkerEditor)) && (
-            <div className="overflow-hidden rounded-md border border-slate-600 bg-slate-100 shadow">
-              <h3 className="bg-slate-600 p-1 text-white">Shape outline</h3>
-              <div className="m-3 grid grid-cols-2 gap-2 text-left">
-                <label htmlFor="strokeColorInput">Color</label>
+            <PropertyPanel title="Shape outline">
+              <label htmlFor="strokeColorInput">Color</label>
+              <input
+                id="strokeColorInput"
+                type="color"
+                value={strokeColor}
+                onChange={(e) => {
+                  setStrokeColor(e.target.value);
+                  currentMarker.strokeColor = e.target.value;
+                }}
+              />
+              <label htmlFor="strokeWidthInput">Width</label>
+              <input
+                type="number"
+                id="strokeWidthInput"
+                value={strokeWidth}
+                onChange={(e) => {
+                  const newWidth = parseFloat(e.target.value);
+                  setStrokeWidth(newWidth);
+                  currentMarker.strokeWidth = newWidth;
+                }}
+              />
+              <div className="col-span-2 flex gap-1.5">
                 <input
-                  id="strokeColorInput"
-                  type="color"
-                  value={strokeColor}
+                  type="radio"
+                  id="solidStrokeInput"
+                  name="lineStyle"
+                  value=""
+                  checked={strokeDasharray === ''}
                   onChange={(e) => {
-                    setStrokeColor(e.target.value);
-                    currentMarker.strokeColor = e.target.value;
+                    if (e.target.checked) {
+                      setStrokeDasharray(e.target.value);
+                      currentMarker.strokeDasharray = e.target.value;
+                    }
                   }}
                 />
-                <label htmlFor="strokeWidthInput">Width</label>
+                <label htmlFor="solidStrokeInput">Solid</label>
                 <input
-                  type="number"
-                  id="strokeWidthInput"
-                  value={strokeWidth}
+                  type="radio"
+                  id="dashedStrokeInput"
+                  name="lineStyle"
+                  value="10 4"
+                  checked={strokeDasharray === '10 4'}
                   onChange={(e) => {
-                    const newWidth = parseFloat(e.target.value);
-                    setStrokeWidth(newWidth);
-                    currentMarker.strokeWidth = newWidth;
+                    if (e.target.checked) {
+                      setStrokeDasharray(e.target.value);
+                      currentMarker.strokeDasharray = e.target.value;
+                    }
                   }}
                 />
-                <div className="col-span-2 flex gap-1.5">
-                  <input
-                    type="radio"
-                    id="solidStrokeInput"
-                    name="lineStyle"
-                    value=""
-                    checked={strokeDasharray === ''}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setStrokeDasharray(e.target.value);
-                        currentMarker.strokeDasharray = e.target.value;
-                      }
-                    }}
-                  />
-                  <label htmlFor="solidStrokeInput">Solid</label>
-                  <input
-                    type="radio"
-                    id="dashedStrokeInput"
-                    name="lineStyle"
-                    value="10 4"
-                    checked={strokeDasharray === '10 4'}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setStrokeDasharray(e.target.value);
-                        currentMarker.strokeDasharray = e.target.value;
-                      }
-                    }}
-                  />
-                  <label htmlFor="dashedStrokeInput">Dashed</label>
-                  <input
-                    type="radio"
-                    id="dottedStrokeInput"
-                    name="lineStyle"
-                    value="2 2"
-                    checked={strokeDasharray === '2 2'}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setStrokeDasharray(e.target.value);
-                        currentMarker.strokeDasharray = e.target.value;
-                      }
-                    }}
-                  />
-                  <label htmlFor="dottedStrokeInput">Dotted</label>
-                </div>
+                <label htmlFor="dashedStrokeInput">Dashed</label>
+                <input
+                  type="radio"
+                  id="dottedStrokeInput"
+                  name="lineStyle"
+                  value="2 2"
+                  checked={strokeDasharray === '2 2'}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setStrokeDasharray(e.target.value);
+                      currentMarker.strokeDasharray = e.target.value;
+                    }
+                  }}
+                />
+                <label htmlFor="dottedStrokeInput">Dotted</label>
               </div>
-            </div>
+            </PropertyPanel>
           )}
       </div>
     </div>
