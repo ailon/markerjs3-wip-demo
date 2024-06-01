@@ -41,16 +41,16 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
 
   const markerTypes = [
     { name: 'FrameMarker', label: 'Frame' },
+    { name: 'CoverMarker', label: 'Cover' },
+    { name: 'HighlightMarker', label: 'Highlight' },
     { name: 'LineMarker', label: 'Line' },
+    { name: 'ArrowMarker', label: 'Arrow' },
+    { name: 'MeasurementMarker', label: 'Measurement' },
+    { name: 'EllipseMarker', label: 'Ellipse' },
+    { name: 'EllipseFrameMarker', label: 'Ellipse frame' },
     { name: 'PolygonMarker', label: 'Polygon' },
     { name: 'FreehandMarker', label: 'Freehand' },
     { name: 'TextMarker', label: 'Text' },
-    { name: 'EllipseMarker', label: 'Ellipse' },
-    { name: 'EllipseFrameMarker', label: 'Ellipse frame' },
-    { name: 'ArrowMarker', label: 'Arrow' },
-    { name: 'MeasurementMarker', label: 'Measurement' },
-    { name: 'HighlightMarker', label: 'Highlight' },
-    { name: 'CoverMarker', label: 'Cover' },
     { name: 'CalloutMarker', label: 'Callout' },
   ];
 
