@@ -1,5 +1,7 @@
 import {
   AnnotationState,
+  ArrowMarkerEditor,
+  ArrowType,
   CalloutMarkerEditor,
   FreehandMarkerEditor,
   LinearMarkerEditor,
@@ -30,6 +32,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   const [strokeColor, setStrokeColor] = useState<string>('#ff0000');
   const [strokeDasharray, setStrokeDasharray] = useState<string>('');
   const [fillColor, setFillColor] = useState<string>('#ff0000');
+  const [arrowType, setArrowType] = useState<ArrowType>('both');
 
   const markerTypes = [
     { name: 'FrameMarker', label: 'Frame' },
@@ -60,6 +63,11 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
         setStrokeWidth(marker.strokeWidth);
         setStrokeDasharray(marker.strokeDasharray);
         setFillColor(marker.fillColor);
+
+        if (marker.is(ArrowMarkerEditor)) {
+          setArrowType(marker.arrowType);
+        }
+
         setCurrentMarker(e.detail.markerEditor);
       });
       editor.current.addEventListener('markerdeselect', () => {
@@ -273,6 +281,60 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
               />
             </PropertyPanel>
           )}
+
+        {currentMarker !== null && currentMarker.is(ArrowMarkerEditor) && (
+          <PropertyPanel title="Arrow tips">
+            <div className="col-span-2 flex gap-1.5">
+              <input
+                type="radio"
+                id="startTipTypeInput"
+                name="arrowTipType"
+                value="start"
+                checked={arrowType === 'start'}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const arrowType = e.target.value as ArrowType;
+                    setArrowType(arrowType);
+                    currentMarker.arrowType = arrowType;
+                  }
+                }}
+              />
+              <label htmlFor="startTipTypeInput">⬅️</label>
+
+              <input
+                type="radio"
+                id="endTipTypeInput"
+                name="arrowTipType"
+                value="end"
+                checked={arrowType === 'end'}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const arrowType = e.target.value as ArrowType;
+                    setArrowType(arrowType);
+                    currentMarker.arrowType = arrowType;
+                  }
+                }}
+              />
+              <label htmlFor="endTipTypeInput">➡️</label>
+
+              <input
+                type="radio"
+                id="bothTipTypeInput"
+                name="arrowTipType"
+                value="both"
+                checked={arrowType === 'both'}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const arrowType = e.target.value as ArrowType;
+                    setArrowType(arrowType);
+                    currentMarker.arrowType = arrowType;
+                  }
+                }}
+              />
+              <label htmlFor="endTipTypeInput">⬅️➡️</label>
+            </div>
+          </PropertyPanel>
+        )}
       </div>
     </div>
   );
