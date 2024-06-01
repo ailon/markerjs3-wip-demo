@@ -13,9 +13,9 @@ import {
   TextMarkerEditor,
 } from '@markerjs/markerjs3';
 import { useEffect, useRef, useState } from 'react';
-import ToolbarButton from './toolbar-button';
-import PropertyPanel from './property-panel';
-import IntroText from './intro-text';
+import ToolbarButton from './components/toolbar-button';
+import PropertyPanel from './components/property-panel';
+import IntroText from './components/intro-text';
 
 type Props = {
   annotation?: AnnotationState;
