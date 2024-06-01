@@ -10,6 +10,7 @@ import {
   PolygonMarkerEditor,
   ShapeMarkerEditor,
   ShapeOutlineMarkerEditor,
+  TextMarkerEditor,
 } from '@markerjs/markerjs3';
 import { useEffect, useRef, useState } from 'react';
 import ToolbarButton from './toolbar-button';
@@ -33,6 +34,9 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   const [strokeDasharray, setStrokeDasharray] = useState<string>('');
   const [fillColor, setFillColor] = useState<string>('#ff0000');
   const [arrowType, setArrowType] = useState<ArrowType>('both');
+  const [textColor, setTextColor] = useState<string>('#000000');
+  const [fontFamily, setFontFamily] = useState<string>('sans-serif');
+  const [fontSize, setFontSize] = useState<number>(1);
 
   const markerTypes = [
     { name: 'FrameMarker', label: 'Frame' },
@@ -66,6 +70,13 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
 
         if (marker.is(ArrowMarkerEditor)) {
           setArrowType(marker.arrowType);
+        }
+
+        if (marker.is(TextMarkerEditor)) {
+          // @todo get from the Editor (not marker) (not implemented in markerjs3 yet)
+          setFontFamily(marker.marker.fontFamily);
+          setFontSize(marker.marker.fontSize.value);
+          setTextColor(marker.marker.color);
         }
 
         setCurrentMarker(e.detail.markerEditor);
@@ -188,7 +199,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
         ref={editorContainer}
         className="m-2 flex-grow rounded-md bg-slate-100"
       ></div>
-      <div className="flex w-64 min-w-64 flex-col space-y-1 p-2 text-center">
+      <div className="flex w-64 min-w-64 flex-col space-y-3 p-2 text-center">
         {currentMarker === null && 'Property panel'}
 
         {currentMarker !== null &&
@@ -331,7 +342,67 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
                   }
                 }}
               />
-              <label htmlFor="endTipTypeInput">⬅️➡️</label>
+              <label htmlFor="bothTipTypeInput">⬅️➡️</label>
+            </div>
+          </PropertyPanel>
+        )}
+
+        {currentMarker !== null && currentMarker.is(TextMarkerEditor) && (
+          <PropertyPanel title="Text">
+            <label htmlFor="fontSelect">Font</label>
+            <select
+              id="fontSelect"
+              value={fontFamily}
+              onChange={(e) => {
+                setFontFamily(e.target.value);
+                // @todo set on the Editor (not marker)
+                currentMarker.marker.fontFamily = e.target.value;
+              }}
+            >
+              <option value="sans-serif">Sans-serif</option>
+              <option value="serif">Serif</option>
+              <option value="monospace">Monospace</option>
+            </select>
+            <label htmlFor="textColorInput">Color</label>
+            <input
+              id="textColorInput"
+              type="color"
+              value={textColor}
+              onChange={(e) => {
+                setTextColor(e.target.value);
+                // @todo set text color on the Editor (not marker)
+                currentMarker.marker.color = e.target.value;
+              }}
+            />
+
+            <label htmlFor="fontSizeInput">Size</label>
+            <div className="flex gap-1.5">
+              {[
+                { label: 'S', value: 0.8 },
+                { label: 'M', value: 1 },
+                { label: 'L', value: 2 },
+              ].map((fs) => (
+                <>
+                  <input
+                    type="radio"
+                    id={`fontSizeInput_${fs.label}`}
+                    name="fontSizeInput"
+                    value={fs.value}
+                    checked={fontSize === fs.value}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setFontSize(fs.value);
+                        const newSize = currentMarker.marker.fontSize;
+                        newSize.value = fs.value;
+                        currentMarker.marker.fontSize = newSize;
+                      }
+                    }}
+                  />
+                  <label htmlFor={`fontSizeInput_${fs.label}`}>
+                    {fs.label}
+                  </label>
+                </>
+              ))}
             </div>
           </PropertyPanel>
         )}
