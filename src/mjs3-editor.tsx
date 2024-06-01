@@ -15,6 +15,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import ToolbarButton from './toolbar-button';
 import PropertyPanel from './property-panel';
+import IntroText from './intro-text';
 
 type Props = {
   annotation?: AnnotationState;
@@ -199,8 +200,8 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
         ref={editorContainer}
         className="m-2 flex-grow rounded-md bg-slate-100"
       ></div>
-      <div className="flex w-64 min-w-64 flex-col space-y-3 p-2 text-center">
-        {currentMarker === null && 'Property panel'}
+      <div className="flex w-64 min-w-64 flex-col space-y-3 overflow-y-auto p-2 text-center">
+        {currentMarker === null && <IntroText />}
 
         {currentMarker !== null &&
           (currentMarker.is(ShapeOutlineMarkerEditor) ||
