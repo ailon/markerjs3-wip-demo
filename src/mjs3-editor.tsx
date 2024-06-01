@@ -1,9 +1,12 @@
 import {
   AnnotationState,
+  CalloutMarkerEditor,
   FreehandMarkerEditor,
   LinearMarkerEditor,
   MarkerArea,
   MarkerBaseEditor,
+  PolygonMarkerEditor,
+  ShapeMarkerEditor,
   ShapeOutlineMarkerEditor,
 } from '@markerjs/markerjs3';
 import { useEffect, useRef, useState } from 'react';
@@ -26,6 +29,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   const [strokeWidth, setStrokeWidth] = useState<number>(3);
   const [strokeColor, setStrokeColor] = useState<string>('#ff0000');
   const [strokeDasharray, setStrokeDasharray] = useState<string>('');
+  const [fillColor, setFillColor] = useState<string>('#ff0000');
 
   const markerTypes = [
     { name: 'FrameMarker', label: 'Frame' },
@@ -55,6 +59,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
         setStrokeColor(marker.strokeColor);
         setStrokeWidth(marker.strokeWidth);
         setStrokeDasharray(marker.strokeDasharray);
+        setFillColor(marker.fillColor);
         setCurrentMarker(e.detail.markerEditor);
       });
       editor.current.addEventListener('markerdeselect', () => {
@@ -177,9 +182,11 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
       ></div>
       <div className="flex w-64 min-w-64 flex-col space-y-1 p-2 text-center">
         {currentMarker === null && 'Property panel'}
+
         {currentMarker !== null &&
           (currentMarker.is(ShapeOutlineMarkerEditor) ||
             currentMarker.is(LinearMarkerEditor) ||
+            currentMarker.is(PolygonMarkerEditor) ||
             currentMarker.is(FreehandMarkerEditor)) && (
             <PropertyPanel title="Shape outline">
               <label htmlFor="strokeColorInput">Color</label>
@@ -247,6 +254,23 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
                 />
                 <label htmlFor="dottedStrokeInput">Dotted</label>
               </div>
+            </PropertyPanel>
+          )}
+
+        {currentMarker !== null &&
+          (currentMarker.is(ShapeMarkerEditor) ||
+            currentMarker.is(CalloutMarkerEditor)) && (
+            <PropertyPanel title="Fill">
+              <label htmlFor="fillColorInput">Color</label>
+              <input
+                id="fillColorInput"
+                type="color"
+                value={fillColor}
+                onChange={(e) => {
+                  setFillColor(e.target.value);
+                  currentMarker.fillColor = e.target.value;
+                }}
+              />
             </PropertyPanel>
           )}
       </div>
