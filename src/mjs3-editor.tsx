@@ -3,6 +3,7 @@ import {
   ArrowMarkerEditor,
   ArrowType,
   CalloutMarkerEditor,
+  CaptionFrameMarkerEditor,
   CustomImageMarker,
   FreehandMarkerEditor,
   LinearMarkerEditor,
@@ -216,7 +217,8 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
           (currentMarker.is(ShapeOutlineMarkerEditor) ||
             currentMarker.is(LinearMarkerEditor) ||
             currentMarker.is(PolygonMarkerEditor) ||
-            currentMarker.is(FreehandMarkerEditor)) && (
+            currentMarker.is(FreehandMarkerEditor) ||
+            currentMarker.is(CaptionFrameMarkerEditor)) && (
             <PropertyPanel title="Shape outline">
               <label htmlFor="strokeColorInput">Color</label>
               <input
@@ -288,7 +290,8 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
 
         {currentMarker !== null &&
           (currentMarker.is(ShapeMarkerEditor) ||
-            currentMarker.is(CalloutMarkerEditor)) && (
+            currentMarker.is(CalloutMarkerEditor) ||
+            currentMarker.is(CaptionFrameMarkerEditor)) && (
             <PropertyPanel title="Fill">
               <label htmlFor="fillColorInput">Color</label>
               <input
