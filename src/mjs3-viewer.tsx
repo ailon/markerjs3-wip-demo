@@ -1,5 +1,6 @@
 import { AnnotationState, MarkerView } from '@markerjs/markerjs3';
 import { useEffect, useRef } from 'react';
+import { TriangleMarker } from './custom_markers/TriangleMarker';
 
 type Props = {
   annotation?: AnnotationState;
@@ -15,6 +16,10 @@ const Mjs3Viewer = ({ annotation }: Props) => {
       targetImg.src = './images/landscape_sm.jpg';
 
       viewer.current = new MarkerView();
+
+      // Register the custom marker type
+      viewer.current.registerMarkerType(TriangleMarker);
+
       viewer.current.targetImage = targetImg;
 
       viewerContainer.current.appendChild(viewer.current);

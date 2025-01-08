@@ -18,6 +18,7 @@ import { useEffect, useRef, useState } from 'react';
 import ToolbarButton from './components/toolbar-button';
 import PropertyPanel from './components/property-panel';
 import IntroText from './components/intro-text';
+import { TriangleMarker } from './custom_markers/TriangleMarker';
 
 type Props = {
   annotation?: AnnotationState;
@@ -58,6 +59,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
     { name: 'CheckImageMarker', label: 'Checkmark' },
     { name: 'XImageMarker', label: 'X' },
     { name: 'CaptionFrameMarker', label: 'Caption frame' },
+    { name: 'TriangleMarker', label: 'Ext: Triangle' },
   ];
 
   useEffect(() => {
@@ -66,6 +68,13 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
       targetImg.src = './images/landscape_sm.jpg';
 
       editor.current = new MarkerArea();
+
+      // register custom marker type
+      editor.current.registerMarkerType(
+        TriangleMarker,
+        ShapeOutlineMarkerEditor<TriangleMarker>,
+      );
+
       editor.current.targetImage = targetImg;
 
       editor.current.addEventListener('markerselect', (e) => {

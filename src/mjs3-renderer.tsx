@@ -1,5 +1,6 @@
 import { AnnotationState, Renderer } from '@markerjs/markerjs3';
 import { useEffect, useRef, useState } from 'react';
+import { TriangleMarker } from './custom_markers/TriangleMarker';
 
 type Props = {
   annotation?: AnnotationState;
@@ -15,6 +16,10 @@ const Mjs3Renderer = ({ annotation }: Props) => {
       targetImg.src = './images/landscape_sm.jpg';
 
       const renderer = new Renderer();
+
+      // Register the custom marker type
+      renderer.registerMarkerType(TriangleMarker);
+
       renderer.targetImage = targetImg;
 
       renderer.rasterize(annotation).then((image) => {
