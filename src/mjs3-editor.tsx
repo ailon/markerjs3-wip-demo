@@ -122,10 +122,6 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
     }
   };
 
-  const handleRestoreStateClick = () => {
-    console.log('restore');
-  };
-
   return (
     <div className="m-2 flex h-[600px] min-h-[500px] overflow-hidden rounded-md bg-white ">
       <div className="flex w-48 min-w-48 flex-col space-y-1 p-2">
@@ -208,11 +204,6 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
           label="save"
           variant="control"
           onClick={handleSaveStateClick}
-        />
-        <ToolbarButton
-          label="restore"
-          variant="control"
-          onClick={handleRestoreStateClick}
         />
       </div>
       <div
