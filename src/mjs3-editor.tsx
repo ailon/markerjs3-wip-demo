@@ -123,8 +123,8 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   };
 
   return (
-    <div className="m-2 flex h-[600px] min-h-[500px] overflow-hidden rounded-md bg-white ">
-      <div className="flex w-48 min-w-48 flex-col space-y-1 p-2">
+    <div className="m-2 grid h-[600px] min-h-[500px] max-w-full grid-cols-[12rem_1fr_16rem] grid-rows-1 overflow-hidden rounded-md bg-white">
+      <div className="row-start-1 row-end-1 flex w-48 min-w-48 flex-col space-y-1 p-2">
         <ToolbarButton
           label="🖱️"
           variant="control"
@@ -208,7 +208,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
       </div>
       <div
         ref={editorContainer}
-        className="m-2 flex-grow rounded-md bg-slate-100"
+        className="col-start-2 col-end-2 m-2 overflow-hidden rounded-md bg-slate-100"
       ></div>
       <div className="flex w-64 min-w-64 flex-col space-y-3 overflow-y-auto p-2 text-center">
         {currentMarker === null && <IntroText />}
