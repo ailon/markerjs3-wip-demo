@@ -30,11 +30,11 @@ const Mjs3Viewer = ({ annotation }: Props) => {
   }, [annotation]);
 
   return (
-    <div className="m-2 flex h-[600px] min-h-[500px] flex-col overflow-hidden rounded-md bg-white ">
+    <div className="m-2 grid h-[600px] min-h-[500px] grid-cols-1 grid-rows-[auto_1fr] overflow-hidden rounded-md bg-white ">
       <h2 className="m-2 text-xl">MarkerView</h2>
       <div
         ref={viewerContainer}
-        className="m-2 flex-grow rounded-md bg-slate-100"
+        className="m-2 overflow-hidden rounded-md bg-slate-100"
       ></div>
     </div>
   );
