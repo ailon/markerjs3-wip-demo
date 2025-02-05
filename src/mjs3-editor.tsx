@@ -21,11 +21,12 @@ import IntroText from './components/intro-text';
 import { TriangleMarker } from './custom_markers/TriangleMarker';
 
 type Props = {
+  targetImageSrc: string;
   annotation?: AnnotationState;
   onAnnotationChange?: (annotation: AnnotationState) => void;
 };
 
-const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
+const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) => {
   const editorContainer = useRef<HTMLDivElement | null>(null);
   const editor = useRef<MarkerArea | null>(null);
 
@@ -65,7 +66,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
   useEffect(() => {
     if (!editor.current && editorContainer.current) {
       const targetImg = document.createElement('img');
-      targetImg.src = './images/landscape_sm.jpg';
+      targetImg.src = targetImageSrc;
 
       editor.current = new MarkerArea();
 
@@ -106,7 +107,7 @@ const Mjs3Editor = ({ annotation, onAnnotationChange }: Props) => {
     if (annotation !== undefined) {
       editor.current?.restoreState(annotation);
     }
-  }, [annotation]);
+  }, [annotation, targetImageSrc]);
 
   const handleMarkerButtonClick = (markerType: string) => {
     const markerEditor = editor.current?.createMarker(markerType);

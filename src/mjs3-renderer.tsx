@@ -3,17 +3,18 @@ import { useEffect, useRef, useState } from 'react';
 import { TriangleMarker } from './custom_markers/TriangleMarker';
 
 type Props = {
+  targetImageSrc: string;
   annotation?: AnnotationState;
 };
 
-const Mjs3Renderer = ({ annotation }: Props) => {
+const Mjs3Renderer = ({ targetImageSrc, annotation }: Props) => {
   const renderedImage = useRef<HTMLImageElement | null>(null);
   const [rendered, setRendered] = useState(false);
 
   useEffect(() => {
     if (annotation) {
       const targetImg = document.createElement('img');
-      targetImg.src = './images/landscape_sm.jpg';
+      targetImg.src = targetImageSrc;
 
       const renderer = new Renderer();
 
@@ -29,7 +30,7 @@ const Mjs3Renderer = ({ annotation }: Props) => {
         }
       });
     }
-  }, [annotation]);
+  }, [annotation, targetImageSrc]);
 
   return (
     <div className="m-2 flex h-[600px] min-h-[500px] flex-col overflow-hidden rounded-md bg-white ">

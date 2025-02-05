@@ -3,17 +3,18 @@ import { useEffect, useRef } from 'react';
 import { TriangleMarker } from './custom_markers/TriangleMarker';
 
 type Props = {
+  targetImageSrc: string;
   annotation?: AnnotationState;
 };
 
-const Mjs3Viewer = ({ annotation }: Props) => {
+const Mjs3Viewer = ({ targetImageSrc, annotation }: Props) => {
   const viewerContainer = useRef<HTMLDivElement | null>(null);
   const viewer = useRef<MarkerView | null>(null);
 
   useEffect(() => {
     if (!viewer.current && viewerContainer.current) {
       const targetImg = document.createElement('img');
-      targetImg.src = './images/landscape_sm.jpg';
+      targetImg.src = targetImageSrc;
 
       viewer.current = new MarkerView();
 
@@ -27,7 +28,7 @@ const Mjs3Viewer = ({ annotation }: Props) => {
     if (annotation !== undefined) {
       viewer.current?.show(annotation);
     }
-  }, [annotation]);
+  }, [annotation, targetImageSrc]);
 
   return (
     <div className="m-2 grid h-[600px] min-h-[500px] grid-cols-1 grid-rows-[auto_1fr] overflow-hidden rounded-md bg-white ">
