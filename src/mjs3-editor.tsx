@@ -143,7 +143,7 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
           }}
         />
 
-        <div className="grid grid-cols-1 gap-1 overflow-y-auto py-2">
+        <div className="grid grid-cols-1 gap-1 overflow-y-auto max-h-60 lg:max-h-max py-2">
           {markerTypes.map((markerType) => (
             <ToolbarButton
               key={markerType.name}
