@@ -27,7 +27,7 @@ function App() {
           </a>
         </div>
       </div>
-      <div className="w-full grow p-2">
+      <div className="w-full grow p-0 lg:p-2">
         <Mjs3Editor
           targetImageSrc={targetImageSrc}
           annotation={annotation}

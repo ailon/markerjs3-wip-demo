@@ -124,8 +124,8 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
   };
 
   return (
-    <div className="m-2 grid h-[600px] min-h-[500px] max-w-full grid-cols-[12rem_1fr_16rem] grid-rows-1 overflow-hidden rounded-md bg-white">
-      <div className="row-start-1 row-end-1 flex w-48 min-w-48 flex-col space-y-1 p-2">
+    <div className="m-2 grid lg:h-[600px] lg:min-h-[500px] max-w-full grid-cols-[8rem_1fr] lg:grid-cols-[12rem_1fr_16rem] grid-rows-1 overflow-hidden rounded-md bg-white">
+      <div className="row-start-1 row-end-1 flex w-32 min-w-32 lg:w-48 lg:min-w-48 flex-col space-y-1 p-2">
         <ToolbarButton
           label="🖱️"
           variant="control"
@@ -211,7 +211,7 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
         ref={editorContainer}
         className="col-start-2 col-end-2 m-2 overflow-hidden rounded-md bg-slate-100"
       ></div>
-      <div className="flex w-64 min-w-64 flex-col space-y-3 overflow-y-auto p-2 text-center">
+      <div className="flex col-start-1 col-end-3 lg:col-start-3 lg:col-end-3 lg:w-64 lg:min-w-64 flex-row lg:flex-col space-x-3 lg:space-x-0 space-y-0 lg:space-y-3 overflow-x-auto lg:overflow-x-hidden lg:overflow-y-auto p-2 text-center justify-center lg:justify-start">
         {currentMarker === null && <IntroText />}
 
         {currentMarker !== null &&
