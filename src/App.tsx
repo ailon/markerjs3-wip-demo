@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="flex flex-col items-center bg-slate-300">
       <h1 className="my-3 text-3xl">marker.js 3 Work-in-Progress Demo</h1>
-      <div className="w-full flex-grow p-2">
+      <div className="w-full grow p-2">
         <Mjs3Editor
           annotation={annotation}
           onAnnotationChange={handleAnnotationChange}

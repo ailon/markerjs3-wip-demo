@@ -22,7 +22,7 @@ const ToolbarButton = ({ label, variant, onClick }: Props) => {
     <input
       type="button"
       value={label}
-      className={`flex-grow rounded p-2 text-white ${classNameColors}`}
+      className={`grow rounded-sm p-2 text-white ${classNameColors}`}
       onClick={onClick}
     />
   );
