@@ -405,10 +405,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@markerjs/markerjs3@^3.0.0-rc.2":
-  version "3.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@markerjs/markerjs3/-/markerjs3-3.0.0-rc.2.tgz#468941932896f98b8c5f8cc5ac76991483d8cf08"
-  integrity sha512-4bdPTfOIZ+0wKCOhqV66XqVKI7H/f+9WG8l/If1OC7ie5xUaehKp2xhgqq9fM+UfsE3WkpYdiGCwuYANX+wh9g==
+"@markerjs/markerjs3@^3.0.0-rc.3":
+  version "3.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@markerjs/markerjs3/-/markerjs3-3.0.0-rc.3.tgz#45ff94cf0c0f9877741e84458b27e4e4c4e3ea1f"
+  integrity sha512-NZDcUG830woh89iRIUvmtQsmSO5/WjB/Vn17Z58BVoh60OmakdYo3FQSXEcipxpBokN0Mu/H6TeZrVoqzBOjqg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
