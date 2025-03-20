@@ -26,7 +26,11 @@ type Props = {
   onAnnotationChange?: (annotation: AnnotationState) => void;
 };
 
-const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) => {
+const Mjs3Editor = ({
+  targetImageSrc,
+  annotation,
+  onAnnotationChange,
+}: Props) => {
   const editorContainer = useRef<HTMLDivElement | null>(null);
   const editor = useRef<MarkerArea | null>(null);
 
@@ -50,6 +54,7 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
     { name: 'LineMarker', label: 'Line' },
     { name: 'ArrowMarker', label: 'Arrow' },
     { name: 'MeasurementMarker', label: 'Measurement' },
+    { name: 'CurveMarker', label: 'Curve' },
     { name: 'EllipseMarker', label: 'Ellipse' },
     { name: 'EllipseFrameMarker', label: 'Ellipse frame' },
     { name: 'PolygonMarker', label: 'Polygon' },
@@ -124,8 +129,8 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
   };
 
   return (
-    <div className="m-2 grid lg:h-[600px] lg:min-h-[500px] max-w-full grid-cols-[8rem_1fr] lg:grid-cols-[12rem_1fr_16rem] grid-rows-1 overflow-hidden rounded-md bg-white">
-      <div className="row-start-1 row-end-1 flex w-32 min-w-32 lg:w-48 lg:min-w-48 flex-col space-y-1 p-2">
+    <div className="m-2 grid max-w-full grid-cols-[8rem_1fr] grid-rows-1 overflow-hidden rounded-md bg-white lg:h-[600px] lg:min-h-[500px] lg:grid-cols-[12rem_1fr_16rem]">
+      <div className="row-start-1 row-end-1 flex w-32 min-w-32 flex-col space-y-1 p-2 lg:w-48 lg:min-w-48">
         <ToolbarButton
           label="🖱️"
           variant="control"
@@ -143,7 +148,7 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
           }}
         />
 
-        <div className="grid grid-cols-1 gap-1 overflow-y-auto max-h-60 lg:max-h-max py-2">
+        <div className="grid max-h-60 grid-cols-1 gap-1 overflow-y-auto py-2 lg:max-h-max">
           {markerTypes.map((markerType) => (
             <ToolbarButton
               key={markerType.name}
@@ -211,7 +216,7 @@ const Mjs3Editor = ({ targetImageSrc, annotation, onAnnotationChange }: Props) =
         ref={editorContainer}
         className="col-start-2 col-end-2 m-2 overflow-hidden rounded-md bg-slate-100"
       ></div>
-      <div className="flex col-start-1 col-end-3 lg:col-start-3 lg:col-end-3 lg:w-64 lg:min-w-64 flex-row lg:flex-col space-x-3 lg:space-x-0 space-y-0 lg:space-y-3 overflow-x-auto lg:overflow-x-hidden lg:overflow-y-auto p-2 text-center justify-center lg:justify-start">
+      <div className="col-start-1 col-end-3 flex flex-row justify-center space-y-0 space-x-3 overflow-x-auto p-2 text-center lg:col-start-3 lg:col-end-3 lg:w-64 lg:min-w-64 lg:flex-col lg:justify-start lg:space-y-3 lg:space-x-0 lg:overflow-x-hidden lg:overflow-y-auto">
         {currentMarker === null && <IntroText />}
 
         {currentMarker !== null &&
