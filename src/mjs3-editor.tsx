@@ -298,7 +298,8 @@ const Mjs3Editor = ({
         {currentMarker !== null &&
           (currentMarker.is(ShapeMarkerEditor) ||
             currentMarker.is(CalloutMarkerEditor) ||
-            currentMarker.is(CaptionFrameMarkerEditor)) && (
+            currentMarker.is(CaptionFrameMarkerEditor) ||
+            currentMarker.is(PolygonMarkerEditor)) && (
             <PropertyPanel title="Fill">
               <label htmlFor="fillColorInput">Color</label>
               <input
