@@ -59,6 +59,7 @@ const Mjs3Editor = ({
     { name: 'EllipseFrameMarker', label: 'Ellipse frame' },
     { name: 'PolygonMarker', label: 'Polygon' },
     { name: 'FreehandMarker', label: 'Freehand' },
+    { name: 'HighlighterMarker', label: 'Highlighter' },
     { name: 'TextMarker', label: 'Text' },
     { name: 'CalloutMarker', label: 'Callout' },
     { name: 'CustomImageMarker', label: '🙂' },
