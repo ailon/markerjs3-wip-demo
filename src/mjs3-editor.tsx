@@ -76,7 +76,7 @@ const Mjs3Editor = ({
 
       editor.current = new MarkerArea();
 
-      editor.current.defaultFilter = 'drop-shadow(2px 2px 2px black)';
+      editor.current.defaultFilter = 'url(#glow)';
 
       // register custom marker type
       editor.current.registerMarkerType(
